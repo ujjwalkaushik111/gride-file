@@ -1,23 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Nav from './components/Nav';
+import { useEffect } from 'react';
+import Preloader from './components/Preloader';
+import { useState } from 'react';
 
 function App() {
+  // preloader-start
+  const [loading, setLoading] =useState(true);
+  useEffect (() => {
+   setTimeout(() => {
+    setLoading(false);
+    document.body.classList.remove("overflow-hidden")
+  }, 3000)
+  document.body.classList.add("overflow-hidden")
+   }, [])
+
+  //  preloader-end
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {loading && <Preloader/>}
+     <Nav/>
     </div>
   );
 }
